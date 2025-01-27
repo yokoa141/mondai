@@ -1,0 +1,477 @@
+0,22,1,"Python
+
+目次
+
+問題
+ No.1  単体テストのとき
+ No.2  例外の書き方
+ No.3  継承の書き方
+ No.4  初期化の書き方(変数2つ)
+ No.5  入力文字列
+ No.6  リストのunpack
+ No.7  sqlite3でのDBアクセス
+ No.8  アプリ化（pyinstaller
+ No.9  python文字化け対策
+ No.10 複数のリストをまとめてfor文
+ No.11 スクレイピング
+ No.12 入力した文字の一番後ろが「座」じゃないときは「座」を追加
+ No.13 リストの文字列があるか判定
+ No.14 in 演算子
+ No.15 グラフ
+ No.16 グラフ２(線の種類,色)
+ No.17 グラフ３(日本語)
+ No.18 グラフ４(凡例の書き方)
+ No.19 グラフ 棒グラフ
+ No.20 グラフ 円グラフ
+ No.21 グラフ 並べ
+ No.22 辞書にあるか確認
+ No.23 CSVデータ読み込み
+ No.24 numpy グラフ積み上げ
+ No.25 numpy基本（二次元配列）
+ No.26 numpy基本（行と列の交換）
+ No.27 numpy基本（スライス）
+ No.28 numpy基本(条件式)",ー,"Python
+
+目次
+
+問題
+ No.1  単体テストのとき
+ No.2  例外の書き方
+ No.3  継承の書き方
+ No.4  初期化の書き方(変数2つ)
+ No.5  入力文字列
+ No.6  リストのunpack
+ No.7  sqlite3でのDBアクセス
+ No.8  アプリ化（pyinstaller
+ No.9  python文字化け対策
+ No.10 複数のリストをまとめてfor文
+ No.11 スクレイピング
+ No.12 入力した文字の一番後ろが「座」じゃないときは「座」を追加
+ No.13 リストの文字列があるか判定
+ No.14 in 演算子
+ No.15 グラフ
+ No.16 グラフ２(線の種類,色)
+ No.17 グラフ３(日本語)
+ No.18 グラフ４(凡例の書き方)
+ No.19 グラフ 棒グラフ
+ No.20 グラフ 円グラフ
+ No.21 グラフ 並べ
+ No.22 辞書にあるか確認
+ No.23 CSVデータ読み込み
+ No.24 numpy グラフ積み上げ
+ No.25 numpy基本（二次元配列）
+ No.26 numpy基本（行と列の交換）
+ No.27 numpy基本（スライス）
+ No.28 numpy基本(条件式)"
+1,23,1,"単体テストのとき
+__main__を使用した記載方法",知識,"if __name__ == '__main__':
+"
+2,24,1,例外の書き方,知識,"エラーの書き方
+
+try:
+except KeyError:
+except ValueError :
+except Exception as e:
+        print(f""{e.__class__.__name__} : {e}\n"")
+"
+3,25,1,継承の書き方,知識,"継承の書き方
+
+import turtle
+class Kame(turtle.Turtle):
+def __init__(self,line='black',fill='white'):
+        super().__init__()
+        self.shape('turtle')
+ self.color(line,fill)
+"
+4,26,1,"初期化の書き方
+変数２つ",知識,"初期化の書き方
+
+sum_kame,sum_kame2 = 0,0
+"
+5,27,1,入力文字列,知識,"入力文字列
+
+x = input(""入力してください(，区切)"").split("","")
+
+"
+6,28,1,リストのunpack,知識,"リストのunpack
+
+human.Patient(val[0],val[1],val[2],val[3])
+↓
+human.Patient(*val)
+"
+7,29,1,sqlite3でのDBアクセス,知識,"sqlite3でのDBアクセス
+
+
+import sqlite3
+conn = sqlite3.connect('DB名')
+sql_txt = ""select * from ad_address""
+cur = conn.execute(sql_txt)
+for row in cur:
+    print(row)
+conn.close()"
+8,30,1,アプリ化（pyinstaller）,知識,"アプリ化（pyinstaller）
+
+1. pyinstallerがインストールされているか確認
+　pip list
+
+2. pyinstallerがあればアプリ化 
+  pyinstaller ファイル名 --onefile --noconsole --distpath 作成先フォルダ名
+　
+　例.pyinstaller zip_tk.py --onefile --noconsole --distpath DIR
+  
+　※注意点
+　　外部ファイルは同じフォルダへ配置すること
+"
+9,31,1,"python文字化け対策
+",知識,"python文字化け対策
+
+1.Webｻｰﾊﾞ起動
+python -m http.server --cgi
+
+2.CGIアクセス
+http://localhost:8000/cgi-bin/test.py
+
+3.文字化け対策
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='UTF-8')
+
+4.CGIエラー対策
+import cgitb
+cgitb.enable()
+"
+10,32,1,複数のリストをまとめてfor文,知識,"複数のリストをまとめてfor文
+
+
+zip関数は複数のリストをまとめてfor文でまわせる
+
+for val2,val3,val4 in zip(name, star, kekka):
+ print(val2.get_text()) #星座名
+        print(val3.get_text()) #点数
+        print(val4.get_text()) #コメント
+        print(""-"" * 20) #区切り用の線
+"
+11,33,1,スクレイピング,知識,"スクレイピング
+
+import requests as r
+from bs4 import BeautifulSoup
+
+#URL作成
+url = ""https://fortune.line.me/horoscope/""
+
+res = r.get(url).text
+sp = BeautifulSoup(res,""html.parser"")
+
+result = sp.find_all(""div"",class_=""zodiac-item_content__hOFiF"")
+
+for val in result:
+    # valには星座/点数/コメントまとめてはいっているので分割
+    # 星座/点数/コメントにそれぞれクラスがあるから分けられる
+    name = val.find_all(""span"",class_=""zodiac-item_name__c4Ypu"")
+"
+12,34,1,入力した文字の一番後ろが「座」じゃないときは「座」を追加,知識,"入力した文字の一番後ろが「座」じゃないときは「座」を追加
+
+holo = input(""星座"")
+
+if holo[-1] != ""座"":
+    holo += ""座""
+"
+13,35,1,リストの文字列があるか判定,知識,"文字列があるか判定
+
+holo = input(""星座"")
+if holo in val2: #in演算子はval2(リスト)の中に文字列があるか判定
+     print(val2.get_text()) #星座名
+"
+14,36,1,in 演算子,知識,"in 演算子
+
+holo = input(""星座"")
+# 漢字の対応方法
+holo in [""おひつじ座"",
+""おひつじ"",
+""牡羊座""]
+"
+15,37,1,グラフ,知識,"グラフ
+
+import matplotlib.pyplot as plt
+data  = [100,300,200,400,600] # Y軸
+data2 = [""A"",""B"",""C"",""D"",""E""] # X軸
+data3 = [50,30,100,40,90] # 2本目
+plt.plot(data,color=""red"") # plot:線グラフ
+plt.bar(data2,data,color=""green"") # 棒グラフ
+plt.plot(data3,color=""blue"")
+plt.show()
+"
+16,38,1,"グラフ２
+# 線の種類,色
+# linestyle,color",知識,"グラフ２
+# 線の種類,色
+# linestyle,color
+
+import matplotlib.pyplot as plt
+
+data  = [100,300,200,400,600] # Y軸
+data2 = [""A"",""B"",""C"",""D"",""E""] # X軸
+data3 = [50,30,100,40,90] # X軸
+data4 = [15, 5, 10, 20, 10] # Y軸増加分
+
+# 線の種類
+# linestyle
+#  ""solid"" ""-""
+#  ""dotted"" "":""
+#  ""dushed"" ""--""
+#  ""dashdot"" ""-.""
+plt.plot(data,color=""red"",linestyle=""dotted"") # plot:線グラフ
+plt.bar(data2,data,color=""lightgreen"") # 棒グラフ
+plt.plot(data3,color=""blue"",linestyle=""dashdot"")
+
+data5 = {'peach':80, 'apple':100, 'banana':300, 'orange': 400, 'kiwi': 150}
+xjiku = [0,1,2,3,4]
+plt.bar(xjiku, data5.values(), tick_label=list(data5.keys()))
+
+plt.show()
+"
+17,39,1,"グラフ３
+
+日本語　import japanize_matplotlib",知識,"グラフ３
+
+日本語　import japanize_matplotlib
+
+凡例　label,legend
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+data  = [100,300,200,400,600] # Y軸
+data2 = [""A"",""B"",""C"",""D"",""E""] # X軸
+data3 = [50,30,100,40,90] # X軸
+data4 = [15, 5, 10, 20, 10] # Y軸増加分
+
+# 線の種類
+# linestyle
+#  ""solid"" ""-""
+#  ""dotted"" "":""
+#  ""dushed"" ""--""
+#  ""dashdot"" ""-.""
+# marker
+#  ""o""　丸
+#  ""s""　四角形
+#  ""p""　五角形
+#  ""*""  星
+plt.plot(data,color=""red"",linestyle=""dotted"",marker=""o"",label=""板橋店"") # plot:線グラフ
+plt.bar(data2,data,color=""lightgreen"") # 棒グラフ
+plt.plot(data3,color=""blue"",linestyle=""dashdot"",marker=""*"",label=""川越店"")
+
+# 棒グラフに辞書を使う
+data5 = {'1月':80, '2月':100, '3月':150, '4月': 300, '5月': 150}
+xjiku = [0,1,2,3,4]
+plt.bar(xjiku, data5.values(), tick_label=list(data5.keys()))
+
+plt.bar(data2,data4, bottom=data, color=""orange"")
+
+# 凡例
+plt.legend(loc = ""upper left"")
+
+plt.show()
+"
+18,40,1,"グラフ４
+凡例の書き方",知識,"グラフ4
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+month       = [""1月"",""2月"",""3月""]
+uriage      = [150,300,100]
+
+plt.plot(month,uriage,linestyle=""solid"",color=""red"",marker=""o"",label=""田中"")
+plt.ylim(0,400) # Ｙ軸の最大、最小値
+# 凡例
+plt.legend(loc = ""upper left"")
+
+plt.show()
+"
+19,41,1,"グラフ
+棒グラフ",知識,"グラフ（棒）
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+month       = [""1月"",""2月"",""3月""]
+data      = [150,300,100]
+
+# 棒グラフ
+plt.bar(month,data,color=""lightgreen"",label=""売上"")
+# グリッド､タイトル､ラベル
+plt.grid(True)
+plt.title(""売上推移"")
+plt.xlabel(""月"")
+plt.ylabel(""金額(百万)"")
+
+plt.ylim(0,400) # Ｙ軸の最大、最小値
+# 凡例
+plt.legend(loc = ""upper left"")
+
+plt.show()
+"
+20,42,1,"グラフ
+円グラフ",知識,"グラフ（円）
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+kuni       = [""日本"",""韓国"",""中国"",""その他""]
+data1     = [40,20,10,30]
+
+plt.pie(data1,
+        labels=kuni,
+        startangle=90,
+        counterclock=False)
+
+plt.show()
+"
+21,43,1,"グラフ
+並べ",知識,"グラフ並べ
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+
+tanaka = [87,92,71]
+sato   = [74,68,97]
+ito    = [50,98,63]
+kamoku = [""国語"",""算数"",""英語""]
+
+#　画面型作成
+fig = plt.figure(figsize=(10,6)) # サイズは、(横、縦)
+
+t = fig.add_subplot(1,3,1,ylim=(0,100))
+t.bar(kamoku,tanaka,color=""red"")
+t.set_title(""田中"")
+
+s = fig.add_subplot(1,3,2,ylim=(0,100))
+s.bar(kamoku,sato,color=""blue"")
+s.set_title(""佐藤"")
+
+i = fig.add_subplot(1,3,3,ylim=(0,100))
+i.bar(kamoku,ito,color=""green"")
+i.set_title(""伊藤"")
+
+plt.show()
+"
+22,44,1,辞書にあるか,知識,if val[5] in oil.key()
+23,45,1,CSVデータ読み込み,知識,"CSVデータ読み込み
+
+import csv
+import japanize_matplotlib
+
+oil = {}
+with open(""data202410.csv"",""r"") as fp:
+    for val in csv.reader(fp):
+        if val[5] in oil.keys():
+            oil[val[5]] += int(val[9].replace("","",""""))
+        else:
+            oil[val[5]] = 0"
+24,46,1,"numpy
+グラフ積み上げ",知識,"numpy
+グラフ積み上げ
+
+import matplotlib.pylab as plt
+import japanize_matplotlib
+import numpy as np
+#3つ積み上げるのでnumpy配列にするよ
+ja = np.array([84,78,71])
+ma = np.array([92,62,98])
+en = np.array([78,90,86])
+name = [""田中"",""佐藤"",""高橋""]
+
+plt.bar(name,ja,label=""国語"")
+plt.bar(name,ma,bottom=ja,label=""算数"")
+plt.bar(name,en,bottom=ja+ma,label=""英語"")
+plt.ylim(1,300)
+plt.legend(loc=2)
+plt.xlabel(""生徒名"")
+plt.ylabel(""点数"")
+plt.title(""テスト結果"")
+
+plt.show()"
+25,47,1,numpy基本（二次元配列）,知識,"numpy基本（二次元配列）
+
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+import numpy as np
+
+result = np.array([[82,92,71],
+                   [74,68,55],
+                   [65,57,68],
+                   [87,91,84],
+                   [91,74,53]])
+name = [""田中"",""佐藤"",""佐々木"",""高橋"",""山本""]
+
+print(result)
+
+#[[82 92 71]
+# [74 68 55]
+# [65 57 68]
+# [87 91 84]
+# [91 74 53]]"
+26,48,1,numpy基本（行と列の交換）,知識,"numpy基本（行と列の交換）
+
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+import numpy as np
+
+result = np.array([[82,92,71],
+                   [74,68,55],
+                   [65,57,68],
+                   [87,91,84],
+                   [91,74,53]])
+name = [""田中"",""佐藤"",""佐々木"",""高橋"",""山本""]
+
+print(result)
+
+#[[82 92 71]
+# [74 68 55]
+# [65 57 68]
+# [87 91 84]
+# [91 74 53]]
+
+# 教科ごとのリストに変える
+result2 = result.transpose()
+print(result2)
+
+#[[82 74 65 87 91]
+# [92 68 57 91 74]
+# [71 55 68 84 53]]"
+27,49,1,numpy基本（スライス）,知識,"numpy基本（スライス）
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+import numpy as np
+
+result = np.array([[82,92,71],
+                   [74,68,55],
+                   [65,57,68],
+                   [87,91,84],
+                   [91,74,53]])
+name = [""田中"",""佐藤"",""佐々木"",""高橋"",""山本""]
+
+#全員の国語の成績を取り出して
+#別のリストに
+
+ja = result[:,0]
+print(ja)"
+28,50,1,numpy基本(条件式),知識,"numpy基本(条件式)
+
+import matplotlib.pyplot as plt
+import japanize_matplotlib
+import numpy as np
+
+result = np.array([[82,92,71],
+                   [74,68,55],
+                   [65,57,68],
+                   [87,91,84],
+                   [91,74,53]])
+name = [""田中"",""佐藤"",""佐々木"",""高橋"",""山本""]
+
+hight_score = result[result>90]
+print(hight_score)"
